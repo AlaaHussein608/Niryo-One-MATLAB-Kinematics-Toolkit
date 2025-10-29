@@ -102,18 +102,6 @@ Key implementation details in the script:
 * The code computes candidate solutions for `t1,t2,t3` (up to 4 elbow/shoulder combinations) and then for each candidate computes two wrist configurations (positive/negative pitch) → total up to 8 combos.
 * After computing angle candidates, the script filters them using `JointLimits` (converted to degrees) and prints only valid solutions.
 
-**Edge cases & recommendations:**
-
-* When `acos` or square roots get `NaN`, it often means the requested pose is outside the reachable workspace (or numerically slightly outside due to roundoff). Add a small clamp before `acos`: `x = max(-1,min(1,x));` to avoid `NaN` from values like `1+1e-12`.
-* Always test IK outputs by feeding the candidate joint vector back into `dkm` to reconstruct `T` and measure pose error.
-
----
-
-## Units & conventions
-
-* The scripts use **radians** for internal trigonometric calculations. In places where human‑readable output is printed the code converts to degrees (using `rad2deg`).
-* DH rows are `[a alpha d theta]` (standard DH).
-
 ---
 
 ## Testing & verification
@@ -132,15 +120,3 @@ Key implementation details in the script:
 * Add collision checking and joint‑limit softening for motion planning.
 
 ---
-
-## License
-
-MIT License — feel free to reuse and adapt these scripts. Please attribute if you publish derived work.
-
----
-
-## Need the actual `.m` files?
-
-If you want, I can also generate ready-to-save `.m` files for: `dkm.m`, `dampedPinv.m`, and polished versions of each example script so you can drop them straight into your MATLAB path. Reply with which files you want and I will add them.
-
-<!-- End of README -->
